@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://webservices.uge.fr" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://webservices.uge.fr" xmlns:intf="http://webservices.uge.fr" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://webservices.uge.fr" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getQueue">
+    <complexType>
+     <sequence>
+      <element name="car_id" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getQueueResponse">
+    <complexType>
+     <sequence>
+      <element name="getQueueReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getNotifications">
+    <complexType>
+     <sequence>
+      <element name="login" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getNotificationsResponse">
+    <complexType>
+     <sequence>
+      <element name="getNotificationsReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addNotification">
+    <complexType>
+     <sequence>
+      <element name="login" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+      <element name="notif" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addNotificationResponse">
+    <complexType/>
+   </element>
+   <element name="getEmployeeCars">
+    <complexType>
+     <sequence>
+      <element name="login" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getEmployeeCarsResponse">
+    <complexType>
+     <sequence>
+      <element name="getEmployeeCarsReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAllCars">
+    <complexType/>
+   </element>
+   <element name="getAllCarsResponse">
+    <complexType>
+     <sequence>
+      <element name="getAllCarsReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="rent">
+    <complexType>
+     <sequence>
+      <element name="login" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+      <element name="car_id" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="rentResponse">
+    <complexType>
+     <sequence>
+      <element name="rentReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="unrent">
+    <complexType>
+     <sequence>
+      <element name="login" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+      <element name="car_id" type="xsd:long"/>
+      <element name="note" type="xsd:float"/>
+      <element name="cleanlinessNote" type="xsd:float"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="unrentResponse">
+    <complexType>
+     <sequence>
+      <element name="unrentReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="unrentResponse">
+
+      <wsdl:part element="impl:unrentResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNotificationsResponse">
+
+      <wsdl:part element="impl:getNotificationsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getQueueRequest">
+
+      <wsdl:part element="impl:getQueue" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllCarsRequest">
+
+      <wsdl:part element="impl:getAllCars" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getEmployeeCarsRequest">
+
+      <wsdl:part element="impl:getEmployeeCars" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getEmployeeCarsResponse">
+
+      <wsdl:part element="impl:getEmployeeCarsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getQueueResponse">
+
+      <wsdl:part element="impl:getQueueResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="rentRequest">
+
+      <wsdl:part element="impl:rent" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="rentResponse">
+
+      <wsdl:part element="impl:rentResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="unrentRequest">
+
+      <wsdl:part element="impl:unrent" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNotificationsRequest">
+
+      <wsdl:part element="impl:getNotifications" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addNotificationResponse">
+
+      <wsdl:part element="impl:addNotificationResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addNotificationRequest">
+
+      <wsdl:part element="impl:addNotification" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllCarsResponse">
+
+      <wsdl:part element="impl:getAllCarsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="App">
+
+      <wsdl:operation name="getQueue">
+
+         <wsdl:input message="impl:getQueueRequest" name="getQueueRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getQueueResponse" name="getQueueResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNotifications">
+
+         <wsdl:input message="impl:getNotificationsRequest" name="getNotificationsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getNotificationsResponse" name="getNotificationsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addNotification">
+
+         <wsdl:input message="impl:addNotificationRequest" name="addNotificationRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:addNotificationResponse" name="addNotificationResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getEmployeeCars">
+
+         <wsdl:input message="impl:getEmployeeCarsRequest" name="getEmployeeCarsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getEmployeeCarsResponse" name="getEmployeeCarsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAllCars">
+
+         <wsdl:input message="impl:getAllCarsRequest" name="getAllCarsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAllCarsResponse" name="getAllCarsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="rent">
+
+         <wsdl:input message="impl:rentRequest" name="rentRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:rentResponse" name="rentResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="unrent">
+
+         <wsdl:input message="impl:unrentRequest" name="unrentRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:unrentResponse" name="unrentResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="AppSoapBinding" type="impl:App">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getQueue">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getQueueRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getQueueResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNotifications">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getNotificationsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getNotificationsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addNotification">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addNotificationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addNotificationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getEmployeeCars">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getEmployeeCarsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getEmployeeCarsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAllCars">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAllCarsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAllCarsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="rent">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="rentRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="rentResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="unrent">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="unrentRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="unrentResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="AppService">
+
+      <wsdl:port binding="impl:AppSoapBinding" name="App">
+
+         <wsdlsoap:address location="http://localhost:8080/IfsCar/services/App"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

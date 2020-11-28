@@ -1,0 +1,56 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from AppService WSDL service -->
+
+  <service name="App" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://webservices.uge.fr"/>
+      <parameter name="wsdlServiceElement" value="AppService"/>
+      <parameter name="schemaQualified" value="http://webservices.uge.fr"/>
+      <parameter name="wsdlServicePort" value="App"/>
+      <parameter name="className" value="fr.uge.webservices.AppSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="App"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getQueue" qname="operNS:getQueue" xmlns:operNS="http://webservices.uge.fr" returnQName="retNS:getQueueReturn" xmlns:retNS="http://webservices.uge.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:car_id" xmlns:pns="http://webservices.uge.fr" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getNotifications" qname="operNS:getNotifications" xmlns:operNS="http://webservices.uge.fr" returnQName="retNS:getNotificationsReturn" xmlns:retNS="http://webservices.uge.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:login" xmlns:pns="http://webservices.uge.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://webservices.uge.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="addNotification" qname="operNS:addNotification" xmlns:operNS="http://webservices.uge.fr" soapAction="" >
+        <parameter qname="pns:login" xmlns:pns="http://webservices.uge.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://webservices.uge.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:notif" xmlns:pns="http://webservices.uge.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getEmployeeCars" qname="operNS:getEmployeeCars" xmlns:operNS="http://webservices.uge.fr" returnQName="retNS:getEmployeeCarsReturn" xmlns:retNS="http://webservices.uge.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:login" xmlns:pns="http://webservices.uge.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://webservices.uge.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getAllCars" qname="operNS:getAllCars" xmlns:operNS="http://webservices.uge.fr" returnQName="retNS:getAllCarsReturn" xmlns:retNS="http://webservices.uge.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="rent" qname="operNS:rent" xmlns:operNS="http://webservices.uge.fr" returnQName="retNS:rentReturn" xmlns:retNS="http://webservices.uge.fr" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:login" xmlns:pns="http://webservices.uge.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://webservices.uge.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:car_id" xmlns:pns="http://webservices.uge.fr" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="unrent" qname="operNS:unrent" xmlns:operNS="http://webservices.uge.fr" returnQName="retNS:unrentReturn" xmlns:retNS="http://webservices.uge.fr" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:login" xmlns:pns="http://webservices.uge.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://webservices.uge.fr" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:car_id" xmlns:pns="http://webservices.uge.fr" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:note" xmlns:pns="http://webservices.uge.fr" type="tns:float" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:cleanlinessNote" xmlns:pns="http://webservices.uge.fr" type="tns:float" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="getNotifications getEmployeeCars addNotification getQueue unrent getAllCars rent"/>
+
+  </service>
+</deployment>
