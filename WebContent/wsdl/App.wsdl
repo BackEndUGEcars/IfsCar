@@ -4,6 +4,21 @@
 Built on Apr 22, 2006 (06:55:48 PDT)-->
  <wsdl:types>
   <schema elementFormDefault="qualified" targetNamespace="http://webservices.uge.fr" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="connect">
+    <complexType>
+     <sequence>
+      <element name="login" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="connectResponse">
+    <complexType>
+     <sequence>
+      <element name="connectReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
    <element name="getQueue">
     <complexType>
      <sequence>
@@ -19,12 +34,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     </complexType>
    </element>
    <element name="getNotifications">
-    <complexType>
-     <sequence>
-      <element name="login" type="xsd:string"/>
-      <element name="password" type="xsd:string"/>
-     </sequence>
-    </complexType>
+    <complexType/>
    </element>
    <element name="getNotificationsResponse">
     <complexType>
@@ -33,30 +43,51 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      </sequence>
     </complexType>
    </element>
-   <element name="addNotification">
-    <complexType>
-     <sequence>
-      <element name="login" type="xsd:string"/>
-      <element name="password" type="xsd:string"/>
-      <element name="notif" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="addNotificationResponse">
+   <element name="basketToJSON">
     <complexType/>
    </element>
-   <element name="getEmployeeCars">
+   <element name="basketToJSONResponse">
     <complexType>
      <sequence>
-      <element name="login" type="xsd:string"/>
-      <element name="password" type="xsd:string"/>
+      <element name="basketToJSONReturn" type="xsd:string"/>
      </sequence>
     </complexType>
    </element>
-   <element name="getEmployeeCarsResponse">
+   <element name="removeFromCart">
     <complexType>
      <sequence>
-      <element name="getEmployeeCarsReturn" type="xsd:string"/>
+      <element name="car_id" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="removeFromCartResponse">
+    <complexType>
+     <sequence>
+      <element name="removeFromCartReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addToCart">
+    <complexType>
+     <sequence>
+      <element name="car_id" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addToCartResponse">
+    <complexType>
+     <sequence>
+      <element name="addToCartReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getMyCars">
+    <complexType/>
+   </element>
+   <element name="getMyCarsResponse">
+    <complexType>
+     <sequence>
+      <element name="getMyCarsReturn" type="xsd:string"/>
      </sequence>
     </complexType>
    </element>
@@ -73,8 +104,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="rent">
     <complexType>
      <sequence>
-      <element name="login" type="xsd:string"/>
-      <element name="password" type="xsd:string"/>
       <element name="car_id" type="xsd:long"/>
      </sequence>
     </complexType>
@@ -89,8 +118,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="unrent">
     <complexType>
      <sequence>
-      <element name="login" type="xsd:string"/>
-      <element name="password" type="xsd:string"/>
       <element name="car_id" type="xsd:long"/>
       <element name="note" type="xsd:float"/>
       <element name="cleanlinessNote" type="xsd:float"/>
@@ -106,6 +133,14 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    </element>
   </schema>
  </wsdl:types>
+
+   <wsdl:message name="connectResponse">
+
+      <wsdl:part element="impl:connectResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
 
    <wsdl:message name="unrentResponse">
 
@@ -139,17 +174,9 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="getEmployeeCarsRequest">
+   <wsdl:message name="getMyCarsRequest">
 
-      <wsdl:part element="impl:getEmployeeCars" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="getEmployeeCarsResponse">
-
-      <wsdl:part element="impl:getEmployeeCarsResponse" name="parameters">
+      <wsdl:part element="impl:getMyCars" name="parameters">
 
       </wsdl:part>
 
@@ -166,6 +193,14 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <wsdl:message name="rentRequest">
 
       <wsdl:part element="impl:rent" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getMyCarsResponse">
+
+      <wsdl:part element="impl:getMyCarsResponse" name="parameters">
 
       </wsdl:part>
 
@@ -195,17 +230,57 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="addNotificationResponse">
+   <wsdl:message name="removeFromCartResponse">
 
-      <wsdl:part element="impl:addNotificationResponse" name="parameters">
+      <wsdl:part element="impl:removeFromCartResponse" name="parameters">
 
       </wsdl:part>
 
    </wsdl:message>
 
-   <wsdl:message name="addNotificationRequest">
+   <wsdl:message name="basketToJSONResponse">
 
-      <wsdl:part element="impl:addNotification" name="parameters">
+      <wsdl:part element="impl:basketToJSONResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="connectRequest">
+
+      <wsdl:part element="impl:connect" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeFromCartRequest">
+
+      <wsdl:part element="impl:removeFromCart" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addToCartRequest">
+
+      <wsdl:part element="impl:addToCart" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="basketToJSONRequest">
+
+      <wsdl:part element="impl:basketToJSON" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addToCartResponse">
+
+      <wsdl:part element="impl:addToCartResponse" name="parameters">
 
       </wsdl:part>
 
@@ -220,6 +295,18 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    </wsdl:message>
 
    <wsdl:portType name="App">
+
+      <wsdl:operation name="connect">
+
+         <wsdl:input message="impl:connectRequest" name="connectRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:connectResponse" name="connectResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
 
       <wsdl:operation name="getQueue">
 
@@ -245,25 +332,49 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="addNotification">
+      <wsdl:operation name="basketToJSON">
 
-         <wsdl:input message="impl:addNotificationRequest" name="addNotificationRequest">
+         <wsdl:input message="impl:basketToJSONRequest" name="basketToJSONRequest">
 
        </wsdl:input>
 
-         <wsdl:output message="impl:addNotificationResponse" name="addNotificationResponse">
+         <wsdl:output message="impl:basketToJSONResponse" name="basketToJSONResponse">
 
        </wsdl:output>
 
       </wsdl:operation>
 
-      <wsdl:operation name="getEmployeeCars">
+      <wsdl:operation name="removeFromCart">
 
-         <wsdl:input message="impl:getEmployeeCarsRequest" name="getEmployeeCarsRequest">
+         <wsdl:input message="impl:removeFromCartRequest" name="removeFromCartRequest">
 
        </wsdl:input>
 
-         <wsdl:output message="impl:getEmployeeCarsResponse" name="getEmployeeCarsResponse">
+         <wsdl:output message="impl:removeFromCartResponse" name="removeFromCartResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addToCart">
+
+         <wsdl:input message="impl:addToCartRequest" name="addToCartRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:addToCartResponse" name="addToCartResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getMyCars">
+
+         <wsdl:input message="impl:getMyCarsRequest" name="getMyCarsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getMyCarsResponse" name="getMyCarsResponse">
 
        </wsdl:output>
 
@@ -311,6 +422,24 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 
+      <wsdl:operation name="connect">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="connectRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="connectResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
       <wsdl:operation name="getQueue">
 
          <wsdlsoap:operation soapAction=""/>
@@ -347,17 +476,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="addNotification">
+      <wsdl:operation name="basketToJSON">
 
          <wsdlsoap:operation soapAction=""/>
 
-         <wsdl:input name="addNotificationRequest">
+         <wsdl:input name="basketToJSONRequest">
 
             <wsdlsoap:body use="literal"/>
 
          </wsdl:input>
 
-         <wsdl:output name="addNotificationResponse">
+         <wsdl:output name="basketToJSONResponse">
 
             <wsdlsoap:body use="literal"/>
 
@@ -365,17 +494,53 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="getEmployeeCars">
+      <wsdl:operation name="removeFromCart">
 
          <wsdlsoap:operation soapAction=""/>
 
-         <wsdl:input name="getEmployeeCarsRequest">
+         <wsdl:input name="removeFromCartRequest">
 
             <wsdlsoap:body use="literal"/>
 
          </wsdl:input>
 
-         <wsdl:output name="getEmployeeCarsResponse">
+         <wsdl:output name="removeFromCartResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addToCart">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addToCartRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addToCartResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getMyCars">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getMyCarsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getMyCarsResponse">
 
             <wsdlsoap:body use="literal"/>
 

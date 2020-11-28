@@ -7,8 +7,8 @@
   <ns1:parameter name="dotNetSoapEncFix" value="true"/>
   <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
   <ns1:parameter name="sendXMLDeclaration" value="true"/>
-  <ns1:parameter name="sendXsiTypes" value="true"/>
   <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <ns1:parameter name="sendXsiTypes" value="true"/>
   <ns1:requestFlow>
    <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
     <ns1:parameter name="scope" value="session"/>
@@ -23,36 +23,32 @@
  <ns1:handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
  <ns1:handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
  <ns1:service name="App" provider="java:RPC" style="wrapped" use="literal">
-  <ns2:operation name="getQueue" qname="ns1:getQueue" returnQName="ns1:getQueueReturn" returnType="xsd:string" soapAction="" xmlns:ns1="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
-   <ns2:parameter qname="ns1:car_id" type="xsd:long"/>
+  <ns2:operation name="connect" qname="ns1:connect" returnQName="ns1:connectReturn" returnType="xsd:boolean" soapAction="" xmlns:ns1="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
+   <ns2:parameter qname="ns1:login" type="xsd:string"/>
+   <ns2:parameter qname="ns1:password" type="xsd:string"/>
   </ns2:operation>
-  <ns1:operation name="getNotifications" qname="ns2:getNotifications" returnQName="ns2:getNotificationsReturn" returnType="xsd:string" soapAction="" xmlns:ns2="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns2:login" type="xsd:string"/>
-   <ns1:parameter qname="ns2:password" type="xsd:string"/>
+  <ns1:operation name="getQueue" qname="ns2:getQueue" returnQName="ns2:getQueueReturn" returnType="xsd:string" soapAction="" xmlns:ns2="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns2:car_id" type="xsd:long"/>
   </ns1:operation>
-  <ns1:operation name="addNotification" qname="ns3:addNotification" soapAction="" xmlns:ns3="http://webservices.uge.fr">
-   <ns1:parameter qname="ns3:login" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-   <ns1:parameter qname="ns3:password" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-   <ns1:parameter qname="ns3:notif" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getNotifications" qname="ns3:getNotifications" returnQName="ns3:getNotificationsReturn" returnType="xsd:string" soapAction="" xmlns:ns3="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="basketToJSON" qname="ns4:basketToJSON" returnQName="ns4:basketToJSONReturn" returnType="xsd:string" soapAction="" xmlns:ns4="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="removeFromCart" qname="ns5:removeFromCart" returnQName="ns5:removeFromCartReturn" returnType="xsd:boolean" soapAction="" xmlns:ns5="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns5:car_id" type="xsd:long"/>
   </ns1:operation>
-  <ns1:operation name="getEmployeeCars" qname="ns4:getEmployeeCars" returnQName="ns4:getEmployeeCarsReturn" returnType="xsd:string" soapAction="" xmlns:ns4="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns4:login" type="xsd:string"/>
-   <ns1:parameter qname="ns4:password" type="xsd:string"/>
-  </ns1:operation>
-  <ns1:operation name="getAllCars" qname="ns5:getAllCars" returnQName="ns5:getAllCarsReturn" returnType="xsd:string" soapAction="" xmlns:ns5="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-  <ns1:operation name="rent" qname="ns6:rent" returnQName="ns6:rentReturn" returnType="xsd:boolean" soapAction="" xmlns:ns6="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns6:login" type="xsd:string"/>
-   <ns1:parameter qname="ns6:password" type="xsd:string"/>
+  <ns1:operation name="addToCart" qname="ns6:addToCart" returnQName="ns6:addToCartReturn" returnType="xsd:boolean" soapAction="" xmlns:ns6="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <ns1:parameter qname="ns6:car_id" type="xsd:long"/>
   </ns1:operation>
-  <ns1:operation name="unrent" qname="ns7:unrent" returnQName="ns7:unrentReturn" returnType="xsd:boolean" soapAction="" xmlns:ns7="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns7:login" type="xsd:string"/>
-   <ns1:parameter qname="ns7:password" type="xsd:string"/>
-   <ns1:parameter qname="ns7:car_id" type="xsd:long"/>
-   <ns1:parameter qname="ns7:note" type="xsd:float"/>
-   <ns1:parameter qname="ns7:cleanlinessNote" type="xsd:float"/>
+  <ns1:operation name="getMyCars" qname="ns7:getMyCars" returnQName="ns7:getMyCarsReturn" returnType="xsd:string" soapAction="" xmlns:ns7="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getAllCars" qname="ns8:getAllCars" returnQName="ns8:getAllCarsReturn" returnType="xsd:string" soapAction="" xmlns:ns8="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="rent" qname="ns9:rent" returnQName="ns9:rentReturn" returnType="xsd:boolean" soapAction="" xmlns:ns9="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns9:car_id" type="xsd:long"/>
   </ns1:operation>
-  <ns1:parameter name="allowedMethods" value="getNotifications getEmployeeCars addNotification getQueue unrent getAllCars rent"/>
+  <ns1:operation name="unrent" qname="ns10:unrent" returnQName="ns10:unrentReturn" returnType="xsd:boolean" soapAction="" xmlns:ns10="http://webservices.uge.fr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns10:car_id" type="xsd:long"/>
+   <ns1:parameter qname="ns10:note" type="xsd:float"/>
+   <ns1:parameter qname="ns10:cleanlinessNote" type="xsd:float"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="removeFromCart getMyCars getNotifications getQueue unrent basketToJSON addToCart getAllCars rent connect"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
   <ns1:parameter name="wsdlPortType" value="App"/>
   <ns1:parameter name="className" value="fr.uge.webservices.App"/>
@@ -60,6 +56,7 @@
   <ns1:parameter name="schemaQualified" value="http://webservices.uge.fr"/>
   <ns1:parameter name="wsdlTargetNamespace" value="http://webservices.uge.fr"/>
   <ns1:parameter name="wsdlServiceElement" value="AppService"/>
+  <ns1:parameter name="scope" value="session"/>
  </ns1:service>
  <ns1:service name="AdminService" provider="java:MSG">
   <ns1:parameter name="allowedMethods" value="AdminService"/>
