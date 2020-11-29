@@ -124,9 +124,18 @@ public class App {
 	}
 	
 	public String getNotifications() throws RemoteException{
-		if(employeeId == -1) return "{    'notifications':[]}";
-		List<String> n = notifs.getNotifications(employeeId);
-		if(n == null) return "{    \"notifications\":[]}";
+		if(employeeId == -1) {
+			return "{    \"notifications\":[]}";
+		}
+		List<String> n = null;
+		try {
+			n = notifs.getNotifications(employeeId);
+		} catch (Exception e) {
+			return "{    \"notifications\":[]}";
+		}
+		if(n.size() == 0) {
+			return "{    \"notifications\":[]}";
+		}
 		StringJoiner sj = new StringJoiner(", ");
 		for (String s : n) {
 			sj.add(s);

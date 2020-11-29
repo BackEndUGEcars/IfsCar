@@ -22,7 +22,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="getQueue">
     <complexType>
      <sequence>
-      <element name="car_id" type="xsd:long"/>
+      <element name="carId" type="xsd:long"/>
      </sequence>
     </complexType>
    </element>
@@ -43,6 +43,21 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      </sequence>
     </complexType>
    </element>
+   <element name="removeNotification">
+    <complexType>
+     <sequence>
+      <element name="employeeId" type="xsd:long"/>
+      <element name="carId" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="removeNotificationResponse">
+    <complexType>
+     <sequence>
+      <element name="removeNotificationReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
    <element name="basketToJSON">
     <complexType/>
    </element>
@@ -56,7 +71,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="removeFromCart">
     <complexType>
      <sequence>
-      <element name="car_id" type="xsd:long"/>
+      <element name="carId" type="xsd:long"/>
      </sequence>
     </complexType>
    </element>
@@ -70,7 +85,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="addToCart">
     <complexType>
      <sequence>
-      <element name="car_id" type="xsd:long"/>
+      <element name="carId" type="xsd:long"/>
      </sequence>
     </complexType>
    </element>
@@ -81,13 +96,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      </sequence>
     </complexType>
    </element>
-   <element name="getMyCars">
-    <complexType/>
-   </element>
-   <element name="getMyCarsResponse">
+   <element name="isInCart">
     <complexType>
      <sequence>
-      <element name="getMyCarsReturn" type="xsd:string"/>
+      <element name="carId" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="isInCartResponse">
+    <complexType>
+     <sequence>
+      <element name="isInCartReturn" type="xsd:boolean"/>
      </sequence>
     </complexType>
    </element>
@@ -104,21 +123,21 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="rent">
     <complexType>
      <sequence>
-      <element name="car_id" type="xsd:long"/>
+      <element name="carId" type="xsd:long"/>
      </sequence>
     </complexType>
    </element>
    <element name="rentResponse">
     <complexType>
      <sequence>
-      <element name="rentReturn" type="xsd:boolean"/>
+      <element name="rentReturn" type="xsd:int"/>
      </sequence>
     </complexType>
    </element>
    <element name="unrent">
     <complexType>
      <sequence>
-      <element name="car_id" type="xsd:long"/>
+      <element name="carId" type="xsd:long"/>
       <element name="note" type="xsd:float"/>
       <element name="cleanlinessNote" type="xsd:float"/>
      </sequence>
@@ -127,7 +146,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="unrentResponse">
     <complexType>
      <sequence>
-      <element name="unrentReturn" type="xsd:boolean"/>
+      <element name="unrentReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getMyCars">
+    <complexType/>
+   </element>
+   <element name="getMyCarsResponse">
+    <complexType>
+     <sequence>
+      <element name="getMyCarsReturn" type="xsd:string"/>
      </sequence>
     </complexType>
    </element>
@@ -230,6 +259,14 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="removeNotificationRequest">
+
+      <wsdl:part element="impl:removeNotification" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
    <wsdl:message name="removeFromCartResponse">
 
       <wsdl:part element="impl:removeFromCartResponse" name="parameters">
@@ -254,9 +291,25 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="isInCartRequest">
+
+      <wsdl:part element="impl:isInCart" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
    <wsdl:message name="removeFromCartRequest">
 
       <wsdl:part element="impl:removeFromCart" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeNotificationResponse">
+
+      <wsdl:part element="impl:removeNotificationResponse" name="parameters">
 
       </wsdl:part>
 
@@ -273,6 +326,14 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <wsdl:message name="basketToJSONRequest">
 
       <wsdl:part element="impl:basketToJSON" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="isInCartResponse">
+
+      <wsdl:part element="impl:isInCartResponse" name="parameters">
 
       </wsdl:part>
 
@@ -332,6 +393,18 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
+      <wsdl:operation name="removeNotification">
+
+         <wsdl:input message="impl:removeNotificationRequest" name="removeNotificationRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:removeNotificationResponse" name="removeNotificationResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
       <wsdl:operation name="basketToJSON">
 
          <wsdl:input message="impl:basketToJSONRequest" name="basketToJSONRequest">
@@ -368,13 +441,13 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="getMyCars">
+      <wsdl:operation name="isInCart">
 
-         <wsdl:input message="impl:getMyCarsRequest" name="getMyCarsRequest">
+         <wsdl:input message="impl:isInCartRequest" name="isInCartRequest">
 
        </wsdl:input>
 
-         <wsdl:output message="impl:getMyCarsResponse" name="getMyCarsResponse">
+         <wsdl:output message="impl:isInCartResponse" name="isInCartResponse">
 
        </wsdl:output>
 
@@ -411,6 +484,18 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
        </wsdl:input>
 
          <wsdl:output message="impl:unrentResponse" name="unrentResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getMyCars">
+
+         <wsdl:input message="impl:getMyCarsRequest" name="getMyCarsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getMyCarsResponse" name="getMyCarsResponse">
 
        </wsdl:output>
 
@@ -476,6 +561,24 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
+      <wsdl:operation name="removeNotification">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeNotificationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeNotificationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
       <wsdl:operation name="basketToJSON">
 
          <wsdlsoap:operation soapAction=""/>
@@ -530,17 +633,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="getMyCars">
+      <wsdl:operation name="isInCart">
 
          <wsdlsoap:operation soapAction=""/>
 
-         <wsdl:input name="getMyCarsRequest">
+         <wsdl:input name="isInCartRequest">
 
             <wsdlsoap:body use="literal"/>
 
          </wsdl:input>
 
-         <wsdl:output name="getMyCarsResponse">
+         <wsdl:output name="isInCartResponse">
 
             <wsdlsoap:body use="literal"/>
 
@@ -595,6 +698,24 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          </wsdl:input>
 
          <wsdl:output name="unrentResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getMyCars">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getMyCarsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getMyCarsResponse">
 
             <wsdlsoap:body use="literal"/>
 

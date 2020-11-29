@@ -15,31 +15,38 @@
         <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
       </operation>
       <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getQueue" qname="operNS:getQueue" returnQName="retNS:getQueueReturn" returnType="rtns:string" soapAction="">
-        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:car_id" type="tns:long"/>
+        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:carId" type="tns:long"/>
       </operation>
       <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getNotifications" qname="operNS:getNotifications" returnQName="retNS:getNotificationsReturn" returnType="rtns:string" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="removeNotification" qname="operNS:removeNotification" returnQName="retNS:removeNotificationReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:employeeId" type="tns:long"/>
+        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:carId" type="tns:long"/>
       </operation>
       <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="basketToJSON" qname="operNS:basketToJSON" returnQName="retNS:basketToJSONReturn" returnType="rtns:string" soapAction="">
       </operation>
       <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="removeFromCart" qname="operNS:removeFromCart" returnQName="retNS:removeFromCartReturn" returnType="rtns:boolean" soapAction="">
-        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:car_id" type="tns:long"/>
+        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:carId" type="tns:long"/>
       </operation>
       <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="addToCart" qname="operNS:addToCart" returnQName="retNS:addToCartReturn" returnType="rtns:boolean" soapAction="">
-        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:car_id" type="tns:long"/>
+        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:carId" type="tns:long"/>
       </operation>
-      <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getMyCars" qname="operNS:getMyCars" returnQName="retNS:getMyCarsReturn" returnType="rtns:string" soapAction="">
+      <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="isInCart" qname="operNS:isInCart" returnQName="retNS:isInCartReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:carId" type="tns:long"/>
       </operation>
       <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getAllCars" qname="operNS:getAllCars" returnQName="retNS:getAllCarsReturn" returnType="rtns:string" soapAction="">
       </operation>
-      <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="rent" qname="operNS:rent" returnQName="retNS:rentReturn" returnType="rtns:boolean" soapAction="">
-        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:car_id" type="tns:long"/>
+      <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="rent" qname="operNS:rent" returnQName="retNS:rentReturn" returnType="rtns:int" soapAction="">
+        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:carId" type="tns:long"/>
       </operation>
-      <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="unrent" qname="operNS:unrent" returnQName="retNS:unrentReturn" returnType="rtns:boolean" soapAction="">
-        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:car_id" type="tns:long"/>
+      <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="unrent" qname="operNS:unrent" returnQName="retNS:unrentReturn" returnType="rtns:int" soapAction="">
+        <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:carId" type="tns:long"/>
         <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:note" type="tns:float"/>
         <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:cleanlinessNote" type="tns:float"/>
       </operation>
-      <parameter name="allowedMethods" value="removeFromCart getMyCars getNotifications getQueue unrent basketToJSON addToCart getAllCars rent connect"/>
+      <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getMyCars" qname="operNS:getMyCars" returnQName="retNS:getMyCarsReturn" returnType="rtns:string" soapAction="">
+      </operation>
+      <parameter name="allowedMethods" value="removeFromCart getMyCars removeNotification getNotifications getQueue isInCart unrent basketToJSON addToCart getAllCars rent connect"/>
 
   </service>
 </deployment>
