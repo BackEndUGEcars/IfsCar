@@ -100,7 +100,9 @@ public class App {
 		StringJoiner sj = new StringJoiner(", ");
 		for (Long id : myBasket) {
 			ICar c = cars.getCar(id);
-			sj.add(c.toJson(id));
+			if(c!=null) {
+				sj.add(c.toJson(id));
+			}
 		}
 		return "{" +
         "    \"cars\": [" +
