@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public interface INotifications extends Remote {
-	void addNotification(Long id, String notif) throws RemoteException;
+	void addNotification(Long employeeID, Long carID, String notif) throws RemoteException;
+	void removeNotifications(Long employeeId, Long carId) throws RemoteException;
 	List<String> getNotifications(Long id) throws RemoteException;
 }

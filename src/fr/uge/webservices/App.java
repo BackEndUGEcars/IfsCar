@@ -14,7 +14,7 @@ public class App {
 	private final IEmployeeDataBase employees;
 	private final ICarDataBase cars;
 	private final INotifications notifs;
-	private long employee_id = -1;
+	private long employeeId = -1;
 	private final List<Long> myBasket;
 	public App() throws MalformedURLException, RemoteException, NotBoundException {
 		employees = (IEmployeeDataBase) Naming.lookup("rmi://localhost:7778/EmployeeDataBase");
@@ -24,20 +24,25 @@ public class App {
 	}
 	
 	public boolean connect(String login, String password) throws RemoteException {
-		employee_id = employees.getIDofLogin(login, password);
-		if(employee_id != -1) return true;
+		employeeId = employees.getIDofLogin(login, password);
+		if(employeeId != -1) return true;
 		return false;
 	}
 	
-	public boolean addToCart(long car_id) throws RemoteException {
-		if(myBasket.contains(car_id)) return false;
-		myBasket.add(car_id);
+	public boolean addToCart(long carId) throws RemoteException {
+		if(myBasket.contains(carId)) return false;
+		myBasket.add(carId);
 		return true;
 	}
 	
-	public boolean removeFromCart(long car_id) throws RemoteException {
-		if(!myBasket.contains(car_id)) return false;
-		myBasket.remove(myBasket.indexOf(car_id));
+	public boolean removeFromCart(long carId) throws RemoteException {
+		if(!myBasket.contains(carId)) return false;
+		myBasket.remove(myBasket.indexOf(carId));
+		return true;
+	}
+	
+	public boolean isInCart(long carId) {
+		if(!myBasket.contains(carId)) return false;
 		return true;
 	}
 	
@@ -48,7 +53,7 @@ public class App {
 			sj.add(c.toJson(id));
 		}
 		return "{" +
-        "    'cars': [" +
+        "    \"cars\": [" +
         sj.toString() +
         "]}";
 	}
@@ -57,62 +62,77 @@ public class App {
 		return cars.toJson();
 	}
 	
-	public boolean rent(long car_id) throws RemoteException {
-		if(employee_id == -1) return false;
-		if(cars.getCar(car_id).isRented() == employee_id) return false;
-		employees.getEmployee(employee_id).addRent(car_id);
-		return cars.rent(car_id, employee_id);
+	public int rent(long carId) throws RemoteException {
+		if(employeeId == -1) return -1;
+		if(cars.getCar(carId) == null) return -1;
+		if(cars.getCar(carId).isRented() == employeeId) return -1;
+		employees.getEmployee(employeeId).addRent(carId);
+		removeFromCart(carId);
+		if(!cars.rent(carId, employeeId)) {
+			notifs.addNotification(employeeId, carId, "you are is queue for " + cars.getCar(carId).getModel());
+			return 0;
+		}
+		notifs.addNotification(employeeId, carId, "you are now renting " + cars.getCar(carId).getModel());
+		return 1;
 	}
 	
-	public boolean unrent(long car_id, float note, float cleanlinessNote) throws RemoteException {
-		if(employee_id == -1) return false;
-		ICar c = cars.getCar(car_id);
-		if(c.isRented() != employee_id) return false;
+	public int unrent(long carId, float note, float cleanlinessNote) throws RemoteException {
+		if(employeeId == -1) return 0;
+		ICar c = cars.getCar(carId);
+		if(c == null) return 0;
+		if(c.isRented() != employeeId) return 0;
 		c.addNoteCar(note);
 		c.addNoteCleanliness(cleanlinessNote);
-		cars.unrent(car_id);
-		employees.getEmployee(employee_id).removeRent(car_id);
-		Long new_employee_id = cars.getCar(car_id).isRented();
-		if(new_employee_id != -1) notifs.addNotification(employee_id, "you are now renting " + cars.getCar(car_id).getModel());
-		return true;
+		cars.unrent(carId);
+		employees.getEmployee(employeeId).removeRent(carId);
+		Long new_employee_id = cars.getCar(carId).isRented();
+		if(new_employee_id != -1) notifs.addNotification(employeeId, carId, "you are now renting " + cars.getCar(carId).getModel());
+		return 1;
 	}
 	
 	public String getMyCars() throws RemoteException {
-		if(employee_id == -1) return "{    'cars':[]}";
-		List<Long> carRented = employees.getEmployee(employee_id).getCarRented();
+		if(employeeId == -1) return "{    \"cars\":[]}";
+		List<Long> carRented = employees.getEmployee(employeeId).getCarRented();
 		StringJoiner sj = new StringJoiner(", ");
 		for (Long l : carRented) {
 			sj.add(cars.getCar(l).toJson(l));
 		}
 		return "{" +
-        "    'cars': [" +
+        "    \"car\": [" +
         sj.toString() +
         "]}";
 	}
 	
-	public String getQueue(long car_id) throws RemoteException {
-		if(employee_id == -1) return "{    'employees':[]}";
-		Queue<Long> q = cars.getCar(car_id).getRentQueue();
+	public String getQueue(long carId) throws RemoteException {
+		if(employeeId == -1) return "{    \"employees\":[]}";
+		Queue<Long> q = cars.getCar(carId).getRentQueue();
 		StringJoiner sj = new StringJoiner(", ");
 		for (Long l : q) {
 			sj.add(employees.getEmployee(l).toJson(l));
 		}
 		return "{" +
-        "    'employees': [" +
+        "    \"employees\": [" +
         sj.toString() +
         "]}";
 	}
 	
+	public boolean removeNotification(Long employeeId, Long carId) throws RemoteException {
+		if(employeeId == -1) return false;
+		if(cars.getCar(carId) == null) return false;
+		removeNotification(employeeId, carId);
+		return true;
+	}
+	
 	public String getNotifications() throws RemoteException{
-		if(employee_id == -1) return "{    'notifications':[]}";
-		List<String> n = notifs.getNotifications(employee_id);
-		if(n == null) return "{    'notifications':[]}";
+		if(employeeId == -1) return "{    'notifications':[]}";
+		List<String> n = notifs.getNotifications(employeeId);
+		if(n == null) return "{    \"notifications\":[]}";
 		StringJoiner sj = new StringJoiner(", ");
 		for (String s : n) {
 			sj.add(s);
 		}
 		return "{" +
-        "    'notifications': [" +
+        "    \"notifications\": [" +
         sj.toString() +
         "]}";
 	}
