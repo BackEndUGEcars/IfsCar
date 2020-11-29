@@ -66,12 +66,12 @@ public class App {
 		if(employeeId == -1) return -1;
 		if(cars.getCar(carId) == null) return -1;
 		if(cars.getCar(carId).isRented() == employeeId) return -1;
-		employees.getEmployee(employeeId).addRent(carId);
 		removeFromCart(carId);
 		if(!cars.rent(carId, employeeId)) {
 			notifs.addNotification(employeeId, carId, cars.getCar(carId).getImagePath(), "you are is queue for " + cars.getCar(carId).getModel());
 			return 0;
 		}
+		employees.getEmployee(employeeId).addRent(carId);
 		notifs.addNotification(employeeId, carId, cars.getCar(carId).getImagePath(), "you are now renting " + cars.getCar(carId).getModel());
 		return 1;
 	}
@@ -86,7 +86,10 @@ public class App {
 		cars.unrent(carId);
 		employees.getEmployee(employeeId).removeRent(carId);
 		Long new_employee_id = cars.getCar(carId).isRented();
-		if(new_employee_id != -1) notifs.addNotification(new_employee_id, carId, cars.getCar(carId).getImagePath(),"you are now renting " + cars.getCar(carId).getModel());
+		if(new_employee_id != -1) {
+			notifs.addNotification(new_employee_id, carId, cars.getCar(carId).getImagePath(),"you are now renting " + cars.getCar(carId).getModel());
+			employees.getEmployee(new_employee_id).addRent(carId);
+		}
 		notifs.addNotification(employeeId, carId, cars.getCar(carId).getImagePath(),"you unrent " + cars.getCar(carId).getModel());
 		return 1;
 	}
