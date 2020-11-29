@@ -29,8 +29,10 @@
       </operation>
       <operation name="getNotifications" qname="operNS:getNotifications" xmlns:operNS="http://webservices.uge.fr" returnQName="retNS:getNotificationsReturn" xmlns:retNS="http://webservices.uge.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
       </operation>
+      <operation name="isCurrentlyRented" qname="operNS:isCurrentlyRented" xmlns:operNS="http://webservices.uge.fr" returnQName="retNS:isCurrentlyRentedReturn" xmlns:retNS="http://webservices.uge.fr" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:carId" xmlns:pns="http://webservices.uge.fr" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
       <operation name="removeNotification" qname="operNS:removeNotification" xmlns:operNS="http://webservices.uge.fr" returnQName="retNS:removeNotificationReturn" xmlns:retNS="http://webservices.uge.fr" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
-        <parameter qname="pns:employeeId" xmlns:pns="http://webservices.uge.fr" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
         <parameter qname="pns:carId" xmlns:pns="http://webservices.uge.fr" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
       </operation>
       <operation name="basketToJSON" qname="operNS:basketToJSON" xmlns:operNS="http://webservices.uge.fr" returnQName="retNS:basketToJSONReturn" xmlns:retNS="http://webservices.uge.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
@@ -56,7 +58,7 @@
       </operation>
       <operation name="getMyCars" qname="operNS:getMyCars" xmlns:operNS="http://webservices.uge.fr" returnQName="retNS:getMyCarsReturn" xmlns:retNS="http://webservices.uge.fr" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
       </operation>
-      <parameter name="allowedMethods" value="removeFromCart getMyCars removeNotification getNotifications getQueue isInCart unrent basketToJSON addToCart getAllCars rent connect"/>
+      <parameter name="allowedMethods" value="getMyCars removeNotification getNotifications isInCart isCurrentlyRented basketToJSON getAllCars rent removeFromCart getQueue unrent addToCart connect"/>
 
   </service>
 </deployment>

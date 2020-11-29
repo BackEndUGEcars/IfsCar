@@ -43,10 +43,23 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      </sequence>
     </complexType>
    </element>
+   <element name="isCurrentlyRented">
+    <complexType>
+     <sequence>
+      <element name="carId" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="isCurrentlyRentedResponse">
+    <complexType>
+     <sequence>
+      <element name="isCurrentlyRentedReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
    <element name="removeNotification">
     <complexType>
      <sequence>
-      <element name="employeeId" type="xsd:long"/>
       <element name="carId" type="xsd:long"/>
      </sequence>
     </complexType>
@@ -163,25 +176,9 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
   </schema>
  </wsdl:types>
 
-   <wsdl:message name="connectResponse">
+   <wsdl:message name="isCurrentlyRentedResponse">
 
-      <wsdl:part element="impl:connectResponse" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="unrentResponse">
-
-      <wsdl:part element="impl:unrentResponse" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="getNotificationsResponse">
-
-      <wsdl:part element="impl:getNotificationsResponse" name="parameters">
+      <wsdl:part element="impl:isCurrentlyRentedResponse" name="parameters">
 
       </wsdl:part>
 
@@ -203,33 +200,9 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="getMyCarsRequest">
-
-      <wsdl:part element="impl:getMyCars" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
    <wsdl:message name="getQueueResponse">
 
       <wsdl:part element="impl:getQueueResponse" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="rentRequest">
-
-      <wsdl:part element="impl:rent" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="getMyCarsResponse">
-
-      <wsdl:part element="impl:getMyCarsResponse" name="parameters">
 
       </wsdl:part>
 
@@ -251,33 +224,9 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="getNotificationsRequest">
-
-      <wsdl:part element="impl:getNotifications" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
    <wsdl:message name="removeNotificationRequest">
 
       <wsdl:part element="impl:removeNotification" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="removeFromCartResponse">
-
-      <wsdl:part element="impl:removeFromCartResponse" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="basketToJSONResponse">
-
-      <wsdl:part element="impl:basketToJSONResponse" name="parameters">
 
       </wsdl:part>
 
@@ -318,6 +267,86 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <wsdl:message name="addToCartRequest">
 
       <wsdl:part element="impl:addToCart" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="connectResponse">
+
+      <wsdl:part element="impl:connectResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="unrentResponse">
+
+      <wsdl:part element="impl:unrentResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNotificationsResponse">
+
+      <wsdl:part element="impl:getNotificationsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getMyCarsRequest">
+
+      <wsdl:part element="impl:getMyCars" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="isCurrentlyRentedRequest">
+
+      <wsdl:part element="impl:isCurrentlyRented" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="rentRequest">
+
+      <wsdl:part element="impl:rent" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getMyCarsResponse">
+
+      <wsdl:part element="impl:getMyCarsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNotificationsRequest">
+
+      <wsdl:part element="impl:getNotifications" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeFromCartResponse">
+
+      <wsdl:part element="impl:removeFromCartResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="basketToJSONResponse">
+
+      <wsdl:part element="impl:basketToJSONResponse" name="parameters">
 
       </wsdl:part>
 
@@ -388,6 +417,18 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
        </wsdl:input>
 
          <wsdl:output message="impl:getNotificationsResponse" name="getNotificationsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="isCurrentlyRented">
+
+         <wsdl:input message="impl:isCurrentlyRentedRequest" name="isCurrentlyRentedRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:isCurrentlyRentedResponse" name="isCurrentlyRentedResponse">
 
        </wsdl:output>
 
@@ -554,6 +595,24 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          </wsdl:input>
 
          <wsdl:output name="getNotificationsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="isCurrentlyRented">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="isCurrentlyRentedRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="isCurrentlyRentedResponse">
 
             <wsdlsoap:body use="literal"/>
 

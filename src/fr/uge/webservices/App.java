@@ -86,7 +86,8 @@ public class App {
 		cars.unrent(carId);
 		employees.getEmployee(employeeId).removeRent(carId);
 		Long new_employee_id = cars.getCar(carId).isRented();
-		if(new_employee_id != -1) notifs.addNotification(employeeId, carId, cars.getCar(carId).getImagePath(),"you are now renting " + cars.getCar(carId).getModel());
+		if(new_employee_id != -1) notifs.addNotification(new_employee_id, carId, cars.getCar(carId).getImagePath(),"you are now renting " + cars.getCar(carId).getModel());
+		notifs.addNotification(employeeId, carId, cars.getCar(carId).getImagePath(),"you unrent " + cars.getCar(carId).getModel());
 		return 1;
 	}
 	
@@ -96,7 +97,9 @@ public class App {
 		List<Long> l = e.getCarRented();
 		if(l == null) return false;
 		for (Long c : l) {
-			if(c == carId) return true;
+			if(c.equals(carId)) {
+				return true;
+			}
 		}
 		return false;
 	}
