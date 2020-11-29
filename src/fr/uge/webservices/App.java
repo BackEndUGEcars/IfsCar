@@ -10,47 +10,92 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.StringJoiner;
 
+/**
+ * Allow to manage Rent car app
+ *
+ */
 public class App {
 	private final IEmployeeDataBase employees;
 	private final ICarDataBase cars;
 	private final INotifications notifs;
 	private long employeeId = -1;
 	private final List<Long> myBasket;
+	
+	/**
+	 * App constructor
+	 * @throws MalformedURLException
+	 * @throws RemoteException
+	 * @throws NotBoundException
+	 */
 	public App() throws MalformedURLException, RemoteException, NotBoundException {
 		employees = (IEmployeeDataBase) Naming.lookup("rmi://localhost:7778/EmployeeDataBase");
 		cars = (ICarDataBase) Naming.lookup("rmi://localhost:1099/CarDataBase");
 		notifs = (INotifications) Naming.lookup("rmi://localhost:7780/Notifications");
 		myBasket = new ArrayList<Long>();
 	}
-	
+
+	/**
+	 * Allow to connect to the App
+	 * @param login the login
+	 * @param password the password
+	 * @return true if the connection is established, false either
+	 * @throws RemoteException
+	 */
 	public boolean connect(String login, String password) throws RemoteException {
 		employeeId = employees.getIDofLogin(login, password);
 		if(employeeId != -1) return true;
 		return false;
 	}
 	
+	/**
+	 * Check if the user is connected
+	 * @return true if the user is connected, false either
+	 */
 	public boolean myConnection() {
 		if(employeeId == -1) return false;
 		return true;
 	}
 	
+	/**
+	 * Add a car to the cart
+	 * @param carId the car id
+	 * @return true if the car can be added, false either
+	 * @throws RemoteException
+	 */
 	public boolean addToCart(long carId) throws RemoteException {
 		if(myBasket.contains(carId)) return false;
 		myBasket.add(carId);
 		return true;
 	}
 	
+	/**
+	 * Remove a car from the cart
+	 * @param carId the car id
+	 * @return true if the car can be removed, false either
+	 * @throws RemoteException
+	 */
 	public boolean removeFromCart(long carId) throws RemoteException {
 		if(!myBasket.contains(carId)) return false;
 		myBasket.remove(myBasket.indexOf(carId));
 		return true;
 	}
 	
+	/**
+	 * Check if the car is in the cart
+	 * @param carId the car id
+	 * @return true if the car is in the cart, false eiter
+	 * @throws RemoteException
+	 */
 	public boolean isInCart(long carId) {
 		if(!myBasket.contains(carId)) return false;
 		return true;
 	}
 	
+	/**
+	 * Convert the basket to a JSON
+	 * @return JSON representation of the basket
+	 * @throws RemoteException
+	 */
 	public String basketToJSON() throws RemoteException {
 		StringJoiner sj = new StringJoiner(", ");
 		for (Long id : myBasket) {
@@ -63,17 +108,28 @@ public class App {
         "]}";
 	}
 	
+	/**
+	 * Get JSON representation of all cars
+	 * @return JSON representation of all cars
+	 * @throws RemoteException
+	 */
 	public String getAllCars() throws RemoteException {
 		return cars.toJson();
 	}
 	
+	/**
+	 * Rent the a car
+	 * @param carId the car to rent
+	 * @return 0 if the car cant be rent, 1 either
+	 * @throws RemoteException
+	 */
 	public int rent(long carId) throws RemoteException {
 		if(employeeId == -1) return -1;
 		if(cars.getCar(carId) == null) return -1;
 		if(cars.getCar(carId).isRented() == employeeId) return -1;
 		removeFromCart(carId);
 		if(!cars.rent(carId, employeeId)) {
-			notifs.addNotification(employeeId, carId, cars.getCar(carId).getImagePath(), "you are is queue for " + cars.getCar(carId).getModel());
+			notifs.addNotification(employeeId, carId, cars.getCar(carId).getImagePath(), "you are in queue for " + cars.getCar(carId).getModel());
 			return 0;
 		}
 		employees.getEmployee(employeeId).addRent(carId);
@@ -81,6 +137,14 @@ public class App {
 		return 1;
 	}
 	
+	/**
+	 * Unrent the a car
+	 * @param carId the car to rent
+	 * @param note the note
+	 * @param cleanlinessNote the cleanliness note
+	 * @return 0 if the car cant be unrent, 1 either
+	 * @throws RemoteException
+	 */
 	public int unrent(long carId, float note, float cleanlinessNote) throws RemoteException {
 		if(employeeId == -1) return 0;
 		ICar c = cars.getCar(carId);
@@ -99,6 +163,12 @@ public class App {
 		return 1;
 	}
 	
+	/**
+	 * Check if the given car is currently rented
+	 * @param carId the car id
+	 * @return true if the car is currently rented, false either
+	 * @throws RemoteException
+	 */
 	public boolean isCurrentlyRented(Long carId) throws RemoteException {
 		if(employeeId == -1) return false;
 		IEmployee e = employees.getEmployee(employeeId);
@@ -112,6 +182,11 @@ public class App {
 		return false;
 	}
 	
+	/**
+	 * Get all cars rented by employee
+	 * @return JSON representation of cars rented by employee
+	 * @throws RemoteException
+	 */
 	public String getMyCars() throws RemoteException {
 		if(employeeId == -1) return "{    \"cars\":[]}";
 		List<Long> carRented = null;
@@ -143,6 +218,12 @@ public class App {
         "]}";
 	}
 	
+	/**
+	 * Remove a notification
+	 * @param carId the car id of the notification
+	 * @return true if the notification can be removed, false either
+	 * @throws RemoteException
+	 */
 	public boolean removeNotification(Long carId) throws RemoteException {
 		if(employeeId == -1) return false;
 		if(cars.getCar(carId) == null) return false;
@@ -150,6 +231,11 @@ public class App {
 		return true;
 	}
 	
+	/**
+	 * Get notifications of the employee
+	 * @return JSON representation of notifications
+	 * @throws RemoteException
+	 */
 	public String getNotifications() throws RemoteException{
 		if(employeeId == -1) {
 			return "{    \"notifications\":[]}";
