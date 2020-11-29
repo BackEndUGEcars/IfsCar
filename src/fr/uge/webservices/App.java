@@ -29,6 +29,11 @@ public class App {
 		return false;
 	}
 	
+	public boolean myConnection() {
+		if(employeeId == -1) return false;
+		return true;
+	}
+	
 	public boolean addToCart(long carId) throws RemoteException {
 		if(myBasket.contains(carId)) return false;
 		myBasket.add(carId);

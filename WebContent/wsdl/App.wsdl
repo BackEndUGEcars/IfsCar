@@ -57,6 +57,16 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      </sequence>
     </complexType>
    </element>
+   <element name="myConnection">
+    <complexType/>
+   </element>
+   <element name="myConnectionResponse">
+    <complexType>
+     <sequence>
+      <element name="myConnectionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
    <element name="removeNotification">
     <complexType>
      <sequence>
@@ -232,6 +242,14 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="myConnectionRequest">
+
+      <wsdl:part element="impl:myConnection" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
    <wsdl:message name="connectRequest">
 
       <wsdl:part element="impl:connect" name="parameters">
@@ -368,6 +386,14 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="myConnectionResponse">
+
+      <wsdl:part element="impl:myConnectionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
    <wsdl:message name="addToCartResponse">
 
       <wsdl:part element="impl:addToCartResponse" name="parameters">
@@ -429,6 +455,18 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
        </wsdl:input>
 
          <wsdl:output message="impl:isCurrentlyRentedResponse" name="isCurrentlyRentedResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="myConnection">
+
+         <wsdl:input message="impl:myConnectionRequest" name="myConnectionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:myConnectionResponse" name="myConnectionResponse">
 
        </wsdl:output>
 
@@ -613,6 +651,24 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          </wsdl:input>
 
          <wsdl:output name="isCurrentlyRentedResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="myConnection">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="myConnectionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="myConnectionResponse">
 
             <wsdlsoap:body use="literal"/>
 

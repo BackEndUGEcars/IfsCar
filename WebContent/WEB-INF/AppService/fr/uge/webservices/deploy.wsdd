@@ -22,6 +22,8 @@
       <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="isCurrentlyRented" qname="operNS:isCurrentlyRented" returnQName="retNS:isCurrentlyRentedReturn" returnType="rtns:boolean" soapAction="">
         <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:carId" type="tns:long"/>
       </operation>
+      <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="myConnection" qname="operNS:myConnection" returnQName="retNS:myConnectionReturn" returnType="rtns:boolean" soapAction="">
+      </operation>
       <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="removeNotification" qname="operNS:removeNotification" returnQName="retNS:removeNotificationReturn" returnType="rtns:boolean" soapAction="">
         <parameter xmlns:pns="http://webservices.uge.fr" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:carId" type="tns:long"/>
       </operation>
@@ -48,7 +50,7 @@
       </operation>
       <operation xmlns:operNS="http://webservices.uge.fr" xmlns:retNS="http://webservices.uge.fr" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getMyCars" qname="operNS:getMyCars" returnQName="retNS:getMyCarsReturn" returnType="rtns:string" soapAction="">
       </operation>
-      <parameter name="allowedMethods" value="getMyCars removeNotification getNotifications isInCart isCurrentlyRented basketToJSON getAllCars rent removeFromCart getQueue unrent addToCart connect"/>
+      <parameter name="allowedMethods" value="getMyCars removeNotification getNotifications isInCart isCurrentlyRented basketToJSON getAllCars rent removeFromCart getQueue myConnection unrent addToCart connect"/>
 
   </service>
 </deployment>
